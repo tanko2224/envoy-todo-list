@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     //
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     protected $fillable = ['title','description','category_id','user_id'];
 
     public function category(){
