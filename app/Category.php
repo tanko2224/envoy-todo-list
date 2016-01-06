@@ -10,6 +10,6 @@ class Category extends Model
     protected $fillable = ['name'];
 
     public function tasks(){
-        $this->belongsToMany('App/Task');
+        $this->hasMany('App\Task');
     }
 }

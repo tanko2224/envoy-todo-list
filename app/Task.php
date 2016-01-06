@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     //
-    protected $fillable = ['title','description'];
+    protected $fillable = ['title','description','category_id','user_id'];
 
-    public function categories(){
-        return $this->belongsToMany('App/Category');
+    public function category(){
+        return $this->belongsTo('App\Category');
     }
 
     public function user(){
-        return $this->belongsTo('App/User');
+        return $this->belongsTo('App\User');
     }
 }
