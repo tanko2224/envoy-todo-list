@@ -1,5 +1,39 @@
-body { font-family: sans-serif; }
+body {
+    font-family: sans-serif;
+}
 
 h2,label {
     text-transform: uppercase;
+}
+
+.container{
+    padding-top: 25px;
+    margin-top: 10px;
+}
+
+.nav-container{
+    width:100%;
+    background-color: #131313;
+    padding:10px;
+    height:50px;
+    border-bottom: 4px solid;
+    opacity: 0.8;
+}
+.nav-container a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color:white;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    font-size: 25px;
+}
+
+.task-list-container,.task-form-container{
+    background-color: white;
+    border: 1px solid;
+    border-radius: 4px;
+    opacity: 0.9;
+    padding: 10px;
+    margin-bottom: 10px;
 }

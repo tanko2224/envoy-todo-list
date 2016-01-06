@@ -7,6 +7,7 @@ angular.module('todo-list',[])
     $scope.task = {};
     $scope.formErrors = [];
     $scope.tasks = [];
+    $scope.filters = {};
 
     $scope.init = function(){
         ApiService.getUsers().success(function(json){
