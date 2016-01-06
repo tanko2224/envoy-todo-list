@@ -7,5 +7,10 @@
   1. A task consists of a title, description and category
 2. Delete tasks.
 3. Filter tasks by user or category.
-4. Responsive
+4. Responsive.
+
+## Technologies 
+- Laravel
+- AngularJS
+- Bootstrap
 
