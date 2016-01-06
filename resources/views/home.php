@@ -32,7 +32,7 @@
         <!--  Right Column -->
         <div class="col-md-8 col-sm-12">
             <div class="task-list-container">
-                <h2>All Tasks</h2>
+                <h2><a href="" class="task-tab" ng-class="{'selected':filters.all}" ng-click="filters.all = true">All Tasks</a> | <a href="" class="task-tab" ng-class="{'selected':!filters.all}" ng-click="filters.all = false">Trash</a></h2>
 
                 <!--   Filters  -->
                 <form class="form-inline">
@@ -54,17 +54,31 @@
                 </form>
 
                 <!--   Task List   -->
-                <div class="task-list">
+                <div class="task-list" ng-if="filters.all">
                     <div ng-repeat="task in tasks | filter:{category_id: filters.category_id,user_id: filters.user_id} as results" class="task-item">
                        <span class="task-title">{{task.title}}</span>
                         <p>Assigned to: <span class="task-info">{{task.user.name}}</span></p>
                         <p>Filed under: <span class="task-info">{{task.category.name}}</span></p>
                         <p>Description: <span class="task-info">{{task.description}}</span></p>
-                        <button class="btn btn-danger" ng-click="deleteTask(task.id)">Delete</button>
+                        <button class="btn btn-danger" ng-click="deleteTask(task.id)">Done</button>
                     </div>
                     <h3 ng-if="results.length == 0">No tasks found ...</h3>
                 </div>
                 <!--   End of Task List   -->
+
+                <!--   Trashed Task List   -->
+                <div class="task-list" ng-if="!filters.all">
+                    <div ng-repeat="task in trashedTasks | filter:{category_id: filters.category_id,user_id: filters.user_id} as results" class="task-item">
+                        <span class="task-title">{{task.title}}</span>
+                        <p>Assigned to: <span class="task-info">{{task.user.name}}</span></p>
+                        <p>Filed under: <span class="task-info">{{task.category.name}}</span></p>
+                        <p>Description: <span class="task-info">{{task.description}}</span></p>
+                        <button class="btn btn-warning" ng-click="restoreTask(task.id)">Restore</button>
+                        <button class="btn btn-danger" ng-click="permDelete(task.id)">Permanent Delete</button>
+                    </div>
+                    <h3 ng-if="results.length == 0">No tasks found ...</h3>
+                </div>
+                <!--   End of Trashed Task List   -->
             </div>
         </div>
         <!--  Right Column -->

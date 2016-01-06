@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TaskController extends Controller
 {
@@ -77,6 +78,47 @@ class TaskController extends Controller
 
         $task = Task::find($id);
         $task->delete();
+
+        return response()->json($arrRet);
+    }
+
+    /**
+     * Gets all trashed tasks
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTrashed(){
+        return response()->json(Task::onlyTrashed()->with('user','category')->get());
+    }
+
+    /**
+     * Restore a task
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreTask($id){
+        $arrRet = array('success' => false);
+
+        if(Task::withTrashed()->find($id)->restore()){
+            $arrRet['success'] = true;
+        }
+
+        return response()->json($arrRet);
+    }
+
+    /**
+     * Permanently delete a task
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function permDelete($id){
+        $arrRet = array('success' => false);
+
+        if(Task::withTrashed()->find($id)->forceDelete()){
+            $arrRet['success'] = true;
+        }
 
         return response()->json($arrRet);
     }
