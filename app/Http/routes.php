@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/',"HomeController@index");
 
 Route::resource('task', 'TaskController');
+Route::resource('user', 'UserController');
+Route::resource('category', 'CategoryController');

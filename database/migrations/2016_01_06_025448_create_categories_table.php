@@ -37,7 +37,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('categories');
         Schema::drop('task_category');
+        Schema::drop('categories');
     }
 }
