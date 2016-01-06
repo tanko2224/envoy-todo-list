@@ -65,7 +65,22 @@ h2,label {
 
 .task-list-container .task-tab.selected{
     color: #2e6da4;
+    border-bottom: 1px solid;
 }
 .task-list-container .task-tab:hover{
     color: #2e6da4;
+}
+
+.btn{
+    border-radius: 0;
+}
+
+.btn-danger{
+    background-color: white;
+    color:red;
+}
+
+.btn-warning{
+    background-color: white;
+    color:#f0ad4e;
 }
