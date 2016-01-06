@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class TaskController extends Controller
 {
@@ -114,11 +114,10 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function permDelete($id){
-        $arrRet = array('success' => false);
+        $arrRet = array('success' => true);
 
-        if(Task::withTrashed()->find($id)->forceDelete()){
-            $arrRet['success'] = true;
-        }
+        Task::withTrashed()->find($id)->forceDelete();
+
 
         return response()->json($arrRet);
     }
