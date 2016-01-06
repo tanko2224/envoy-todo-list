@@ -5,6 +5,7 @@ angular.module('todo-list',[])
     $scope.users = [];
     $scope.categories = [];
     $scope.task = {};
+    $scope.trashedTasks = [];
     $scope.formErrors = [];
     $scope.tasks = [];
     $scope.filters = {};
@@ -18,6 +19,7 @@ angular.module('todo-list',[])
             $scope.categories = json;
         });
 
+        $scope.filters.all = true;
         $scope.loadTask();
     };
 
@@ -39,10 +41,30 @@ angular.module('todo-list',[])
         ApiService.getTasks().success(function(json){
             $scope.tasks = json;
         });
+
+        ApiService.getTrashedTasks().success(function(json){
+            $scope.trashedTasks = json;
+        })
     };
 
     $scope.deleteTask = function(id){
         ApiService.deleteTask(id).success(function(json){
+            if(json.success){
+                $scope.loadTask();
+            }
+        });
+    };
+
+    $scope.restoreTask = function(id){
+        ApiService.restoreTask(id).success(function(json){
+            if(json.success){
+                $scope.loadTask();
+            }
+        });
+    };
+
+    $scope.permDelete = function(id){
+        ApiService.permDelete(id).success(function(json){
             if(json.success){
                 $scope.loadTask();
             }
@@ -77,12 +99,33 @@ angular.module('todo-list',[])
         });
     };
 
+    fac.getTrashedTasks = function(){
+        return $http({
+            method:'GET',
+            url:'/trashed'
+        });
+    };
+
     fac.deleteTask = function(id){
         return $http({
             method:'DELETE',
             url:'/task/'+id
         });
-    }
+    };
+
+    fac.restoreTask = function(id){
+        return $http({
+            method:'PUT',
+            url:'/trashed/'+id
+        });
+    };
+
+    fac.permDelete = function(id){
+        return $http({
+            method:'DELETE',
+            url:'/trashed/'+id
+        });
+    };
 
     fac.createTask = function(task){
         return $http({
