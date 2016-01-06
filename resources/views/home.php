@@ -20,7 +20,7 @@
 <header>
     <div class="nav-container">
         <nav class="navbar-tasks">
-            <a href="/">Envoy Todo List</a>
+            <a href="/">Envoy Todo List <span class="glyphicon glyphicon-check"></span></a>
         </nav>
     </div><!-- /.container-fluid -->
 </header>
@@ -41,23 +41,27 @@
                             <option ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="">User Filter: </label>
+                        <select class="form-control" ng-model="filters.user_id">
+                            <option value="">None</option>
+                            <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option>
+                        </select>
+                    </div>
 
                 </form>
 
                 <!--   Task List   -->
-                <table class="table table-responsive table-stripped">
-                    <thead>
-                    <tr><th>Task</th><th>Assignee</th><th>Category</th><th>Options</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="task in tasks | filter:{category_id: filters.category_id} as results">
-                        <td>{{task.title}}</td>
-                        <td>{{task.user.name}}</td>
-                        <td>{{task.category.name}}</td>
-                        <td><button class="btn btn-danger" ng-click="deleteTask(task.id)">Delete</button></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="task-list">
+                    <div ng-repeat="task in tasks | filter:{category_id: filters.category_id,user_id: filters.user_id} as results" class="task-item">
+                       <span class="task-title">{{task.title}}</span>
+                        <p>Assigned to: <span class="task-info">{{task.user.name}}</span></p>
+                        <p>Filed under: <span class="task-info">{{task.category.name}}</span></p>
+                        <p>Description: <span class="task-info">{{task.description}}</span></p>
+                        <button class="btn btn-danger" ng-click="deleteTask(task.id)">Delete</button>
+                    </div>
+                    <h3 ng-if="results.length == 0">No tasks found ...</h3>
+                </div>
                 <!--   End of Task List   -->
             </div>
         </div>
